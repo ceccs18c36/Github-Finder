@@ -26,6 +26,15 @@ class Search extends Component {
                 <button type='submit' className='btn btn-dark btn-block'>
                     Search
                 </button>
+                {this.props.showClear && (
+                    <button
+                        className='btn btn-clear btn-block'
+                        type='submit'
+                        onClick={this.props.clearUsers}
+                    >
+                        Clear
+                    </button>
+                )}
             </form>
         );
     }
