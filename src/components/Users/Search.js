@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
     state = {
         name: '',
     };
 
+    static propTypes = {
+        searchUsers: PropTypes.func.isRequired,
+        clearUsers: PropTypes.func.isRequired,
+        showClear: PropTypes.bool.isRequired,
+    };
     onchange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     find = (e) => {
@@ -14,23 +20,24 @@ class Search extends Component {
     };
 
     render() {
+        const { showClear, clearUsers } = this.props;
         return (
             <form className='form' onSubmit={this.find}>
                 <input
                     type='text'
                     name='name'
-                    id=''
+                    placeholder='Enter the username'
                     value={this.state.name}
                     onChange={this.onchange}
                 />
                 <button type='submit' className='btn btn-dark btn-block'>
                     Search
                 </button>
-                {this.props.showClear && (
+                {showClear && (
                     <button
                         className='btn btn-clear btn-block'
                         type='submit'
-                        onClick={this.props.clearUsers}
+                        onClick={clearUsers}
                     >
                         Clear
                     </button>
