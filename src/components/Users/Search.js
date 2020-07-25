@@ -7,7 +7,7 @@ class Search extends Component {
     };
 
     static propTypes = {
-        searchUsers: PropTypes.func.isRequired,
+        findUser: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         showClear: PropTypes.bool.isRequired,
     };
