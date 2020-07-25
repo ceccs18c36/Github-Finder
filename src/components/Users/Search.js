@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Search = () => {
-    return (
-        <form action=''>
-            <input type='text' name='Query' id='' />
-            <button type='submit' className='btn btn-dark btn-block'>
-                Search
-            </button>
-        </form>
-    );
-};
+class Search extends Component {
+    state = {
+        name: '',
+    };
+
+    onchange = (e) => this.setState({ [e.target.name]: e.target.value });
+
+    find = (e) => {
+        e.preventDefault();
+        this.props.findUser(this.state.name);
+        this.setState({ name: '' });
+    };
+
+    render() {
+        return (
+            <form className='form' onSubmit={this.find}>
+                <input
+                    type='text'
+                    name='name'
+                    id=''
+                    value={this.state.name}
+                    onChange={this.onchange}
+                />
+                <button type='submit' className='btn btn-dark btn-block'>
+                    Search
+                </button>
+            </form>
+        );
+    }
+}
 
 export default Search;
