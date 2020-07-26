@@ -10,13 +10,22 @@ class Search extends Component {
         findUser: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         showClear: PropTypes.bool.isRequired,
+        fireAlert: PropTypes.func.isRequired,
     };
+
     onchange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     find = (e) => {
         e.preventDefault();
-        this.props.findUser(this.state.name);
-        this.setState({ name: '' });
+        if (this.state.name === '') {
+            this.props.fireAlert(
+                'Please Enter the username before searching',
+                'info'
+            );
+        } else {
+            this.props.findUser(this.state.name);
+            this.setState({ name: '' });
+        }
     };
 
     render() {
