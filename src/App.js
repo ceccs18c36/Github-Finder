@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/Users/Users';
+import User from './components/Users/User';
 import Search from './components/Users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
@@ -11,6 +12,7 @@ import './App.css';
 class App extends Component {
     state = {
         users: [],
+        user: {},
         loading: false,
         alert: null,
     };
@@ -26,6 +28,16 @@ class App extends Component {
         });
     };
 
+    getUser = async (username) => {
+        this.setState({ loading: true });
+        const res = await axios.get(
+            `https://api.github.com/search/users/${username}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+        );
+        this.setState({
+            user: res.data,
+            loading: false,
+        });
+    };
     clearUsers = () => {
         this.setState({ users: [], loading: false });
     };
@@ -36,7 +48,7 @@ class App extends Component {
     };
 
     render() {
-        const { users, loading } = this.state;
+        const { users, loading, user } = this.state;
         return (
             <Router>
                 <div className='App'>
@@ -65,6 +77,18 @@ class App extends Component {
                                 )}
                             />
                             <Route exact path='/about' component={About} />
+                            <Route
+                                exact
+                                path='/user/:login'
+                                render={(props) => (
+                                    <User
+                                        {...props}
+                                        getUser={this.getUser}
+                                        user={user}
+                                        loading={loading}
+                                    />
+                                )}
+                            />
                         </div>
                     </Switch>
                 </div>
