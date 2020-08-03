@@ -8,7 +8,6 @@ import {
   FIND_USERS,
   GET_REPO,
   GET_USER,
-  SET_ALERT,
   SET_LOADING,
 } from "../types";
 
@@ -60,11 +59,6 @@ const GithubState = (props) => {
     dispatch({ type: SET_LOADING });
   };
 
-  //SetAlert
-  const fireAlert = (message, type) => {
-    dispatch({ type: SET_ALERT, payload: { msg: message, type: type } });
-    setTimeout(() => dispatch({ type: SET_ALERT, payload: null }), 3000);
-  };
   return (
     <GithubContext.Provider
       value={{
@@ -76,7 +70,6 @@ const GithubState = (props) => {
         getUser,
         getRepo,
         clearUsers,
-        fireAlert,
       }}
     >
       {props.children}
