@@ -22,6 +22,7 @@ const Search = () => {
         type="text"
         name="name"
         placeholder="Enter the username"
+        aria-label="Username"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
